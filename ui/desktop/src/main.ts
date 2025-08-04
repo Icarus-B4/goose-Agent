@@ -2200,6 +2200,35 @@ app.whenReady().then(async () => {
       return 1.0;
     }
   });
+
+  // Session management handlers
+  ipcMain.handle('delete-session-file', async (_event, sessionId: string) => {
+    try {
+      // Get the sessions directory from environment or use default
+      const sessionsDir =
+        process.env.GOOSE_SESSIONS_DIR || path.join(os.homedir(), '.goose', 'sessions');
+
+      // Construct the session file path
+      const sessionFilePath = path.join(sessionsDir, `${sessionId}.json`);
+
+      // Check if the file exists
+      try {
+        await fs.access(sessionFilePath);
+      } catch (error) {
+        console.error(`Session file not found: ${sessionFilePath}`);
+        return false;
+      }
+
+      // Delete the session file
+      await fs.unlink(sessionFilePath);
+      console.log(`Successfully deleted session file: ${sessionFilePath}`);
+
+      return true;
+    } catch (error) {
+      console.error(`Error deleting session file for ${sessionId}:`, error);
+      return false;
+    }
+  });
 });
 
 async function getAllowList(): Promise<string[]> {

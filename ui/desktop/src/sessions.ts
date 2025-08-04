@@ -1,5 +1,5 @@
 import { Message } from './types/message';
-import { getSessionHistory, listSessions, SessionInfo, deleteSession } from './api';
+import { getSessionHistory, listSessions, SessionInfo } from './api';
 import { convertApiMessageToFrontendMessage } from './components/context_management';
 
 export interface SessionMetadata {
@@ -134,9 +134,11 @@ export async function fetchSessionDetails(sessionId: string): Promise<SessionDet
  */
 export async function deleteSessionById(sessionId: string): Promise<void> {
   try {
-    await deleteSession({
-      path: { session_id: sessionId },
-    });
+    // Use Electron IPC to delete the session file
+    const success = await window.electron.deleteSessionFile(sessionId);
+    if (!success) {
+      throw new Error(`Failed to delete session ${sessionId}`);
+    }
   } catch (error) {
     console.error(`Error deleting session ${sessionId}:`, error);
     throw error;

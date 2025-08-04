@@ -115,6 +115,8 @@ type ElectronAPI = {
   // Window transparency functions
   setWindowOpacity: (opacity: number) => Promise<boolean>;
   getWindowOpacity: () => Promise<number>;
+  // Session management functions
+  deleteSessionFile: (sessionId: string) => Promise<boolean>;
 };
 
 type AppConfigAPI = {
@@ -246,6 +248,8 @@ const electronAPI: ElectronAPI = {
   // Window transparency functions
   setWindowOpacity: (opacity: number) => ipcRenderer.invoke('set-window-opacity', opacity),
   getWindowOpacity: () => ipcRenderer.invoke('get-window-opacity'),
+  // Session management functions
+  deleteSessionFile: (sessionId: string) => ipcRenderer.invoke('delete-session-file', sessionId),
 };
 
 const appConfigAPI: AppConfigAPI = {
