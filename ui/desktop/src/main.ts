@@ -2160,6 +2160,46 @@ app.whenReady().then(async () => {
   ipcMain.on('get-app-version', (event) => {
     event.returnValue = app.getVersion();
   });
+
+  // Window transparency handlers
+  ipcMain.handle('set-window-opacity', async (_event, opacity: number) => {
+    try {
+      // Validate opacity value (0.03 to 1.0, where 0.03 = 97% transparency)
+      const validOpacity = Math.max(0.03, Math.min(1.0, opacity));
+
+      console.log(`Setting window opacity to: ${validOpacity}`);
+
+      // Get all windows and apply opacity
+      const windows = BrowserWindow.getAllWindows();
+      for (const window of windows) {
+        window.setOpacity(validOpacity);
+        console.log(`Applied opacity ${validOpacity} to window: ${window.id}`);
+      }
+
+      // Save opacity setting
+      const settings = loadSettings();
+      settings.windowOpacity = validOpacity;
+      saveSettings(settings);
+
+      console.log(`Saved opacity setting: ${validOpacity}`);
+      return true;
+    } catch (error) {
+      console.error('Error setting window opacity:', error);
+      return false;
+    }
+  });
+
+  ipcMain.handle('get-window-opacity', async () => {
+    try {
+      const settings = loadSettings();
+      const opacity = settings.windowOpacity || 1.0;
+      console.log(`Retrieved window opacity: ${opacity}`);
+      return opacity;
+    } catch (error) {
+      console.error('Error getting window opacity:', error);
+      return 1.0;
+    }
+  });
 });
 
 async function getAllowList(): Promise<string[]> {
