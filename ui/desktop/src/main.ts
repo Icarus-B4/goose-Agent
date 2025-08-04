@@ -2204,28 +2204,36 @@ app.whenReady().then(async () => {
   // Session management handlers
   ipcMain.handle('delete-session-file', async (_event, sessionId: string) => {
     try {
-      // Get the sessions directory from environment or use default
-      const sessionsDir =
-        process.env.GOOSE_SESSIONS_DIR || path.join(os.homedir(), '.goose', 'sessions');
+      // Validate session ID to prevent path traversal attacks
+      if (!sessionId || sessionId.length > 255 || /[<>:"|?*]/.test(sessionId)) {
+        console.error(`[Main] Invalid session ID: ${sessionId}`);
+        return false;
+      }
 
-      // Construct the session file path
-      const sessionFilePath = path.join(sessionsDir, `${sessionId}.json`);
+      // Use the same session directory logic as the Rust backend
+      // The Rust backend uses AppStrategyArgs with top_level_domain: "Block", author: "Block", app_name: "goose"
+      // This creates the path structure: Block/goose/data/sessions/
+      const appDataPath = path.dirname(app.getPath('userData')); // Get the parent directory
+      const sessionsDir = path.join(appDataPath, 'Block', 'goose', 'data', 'sessions');
+
+      // Construct the session file path with .jsonl extension (like the Rust backend)
+      const sessionFilePath = path.join(sessionsDir, `${sessionId}.jsonl`);
 
       // Check if the file exists
       try {
         await fs.access(sessionFilePath);
       } catch (error) {
-        console.error(`Session file not found: ${sessionFilePath}`);
+        console.error(`[Main] Session file not found: ${sessionFilePath}`);
         return false;
       }
 
       // Delete the session file
       await fs.unlink(sessionFilePath);
-      console.log(`Successfully deleted session file: ${sessionFilePath}`);
+      console.log(`[Main] Successfully deleted session file: ${sessionFilePath}`);
 
       return true;
     } catch (error) {
-      console.error(`Error deleting session file for ${sessionId}:`, error);
+      console.error(`[Main] Error deleting session file for ${sessionId}:`, error);
       return false;
     }
   });
