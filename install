@@ -1,0 +1,10 @@
+[33mf5f845b0a4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m ...
+[33m4ba3a7ae11[m ...
+[33mf286cb590d[m feat: erweitere Recipe-Typ mit Version und Tags, verbessere Author-Handle Logik und füge Webpack require.context Definition hinzu
+[33m7ed00fa607[m 
+[33m05dd8a2823[m Merge branch 'main' of https://github.com/Icarus-B4/goose-Agent
+[33ma399ccc177[m WIP: Temporäre Änderungen vor Pull
+[33m48a38dc034[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Chore: apply more clippy rules to prevent from code complexity (#3813)
+[33m412ceb8128[m chore(mcp): Add helpers to parse parameters (#2821)
+[33mda8f64b370[m feat: enable docusaurus respectPrefersColorScheme (#3746)
+[33m9d5f58a0f3[m fix session resume in new window (#3800)
