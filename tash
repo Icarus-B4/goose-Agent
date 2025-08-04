@@ -1,0 +1,10 @@
+[33m6ce0d6cf32[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/typescript-fixes-rebased[m[33m, [m[1;31morigin/feature/typescript-fixes-rebased[m[33m)[m ...
+[33m8e34edfe8d[m index on feature/typescript-fixes-rebased: bc4d88a89f ...
+[33m7e23a68a80[m  Major Enhancements and Fixes for Goose
+[33mbc4d88a89f[m ...
+[33m562dea3f23[m docs: Dynamic linux install buttons (#3810)
+[33m5d24432c83[m tests: Add missing `#[serial]` to two tests (#3816)
+[33m48a38dc034[m Chore: apply more clippy rules to prevent from code complexity (#3813)
+[33m412ceb8128[m chore(mcp): Add helpers to parse parameters (#2821)
+[33mda8f64b370[m feat: enable docusaurus respectPrefersColorScheme (#3746)
+[33m9d5f58a0f3[m fix session resume in new window (#3800)
