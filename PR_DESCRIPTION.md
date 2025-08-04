@@ -19,6 +19,15 @@ Dieser Pull Request enthält umfangreiche Verbesserungen und Fixes für das Goos
 - Lokalisierungsunterstützung für 50+ Sprachen
 - Verbesserte Ressourcen-Verwaltung
 - Native Windows-Integration
+- 
+### 4. Chat-Verlauf lösch funktion integriert
+Changes:
+  - Added a delete button to each session item in the history list
+  - Implemented a confirmation modal with appropriate styling to prevent accidental deletions
+  - Added loading state during deletion for better user feedback
+  - Implemented success/error notifications to confirm deletion status
+  - Added secure file deletion with validation checks to prevent path traversal attacks
+  - Created IPC handlers for communication between the UI and Electron main process
 
 ## 🔧 Technische Verbesserungen
 
@@ -96,7 +105,7 @@ Dieser Pull Request enthält umfangreiche Verbesserungen und Fixes für das Goos
 - [x] Dokumentation aktualisiert
 
 ## 🖼️ Screenshots
-- **Vorher**: 20 TypeScript-Fehler, keine transparenten Fenster, keine Code Artifacts
+- **Vorher**: 20 TypeScript-Fehler, keine transparenten Fenster, keine Code Artifacts, Chat-Verlauf löschen
 - **Nachher**: 0 TypeScript-Fehler ✅, transparente Fenster ✅, Code Artifacts ✅, Desktop-App ✅
 
 ## 🔗 Zusätzliche Informationen
